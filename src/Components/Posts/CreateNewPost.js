@@ -21,6 +21,7 @@ class CreateNewPost extends React.Component {
     this.props.createPost({
       title: this.state.postTitle,
       content: this.state.postContent,
+      author: this.props.author,
     });
   };
 
@@ -66,4 +67,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(CreateNewPost);
+const mapStateToProps = (state) => {
+  return {
+    author: state.firebase.auth.uid,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewPost);

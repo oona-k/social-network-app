@@ -1,66 +1,64 @@
-import { firebaseReducer } from 'react-redux-firebase'
-import { combineReducers } from 'redux'
+import { firebaseReducer } from "react-redux-firebase";
+import { combineReducers } from "redux";
 
 const initialState = {
-    posts: [
-        
-    ],
-    userData: {},
-    userActionErr: null,
-    loginStatus: false
+  posts: [],
+  userData: {},
+  userActionErr: null,
+  loginStatus: false,
 };
 
 const authReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case 'LOGIN_ERROR':
-            return {
-                ...state,
-                userActionErr: action.error.code
-            }
-        case 'LOGIN_SUCCESS':
-            console.log('Login success, state not changed');
-            return {
-                ...state,
-                loginStatus: true
-            };
-        default: 
-            return state;
-    }
-}
+  switch (action.type) {
+    case "LOGIN_ERROR":
+      return {
+        ...state,
+        userActionErr: action.error.code,
+      };
+    case "LOGIN_SUCCESS":
+      console.log("Login success, state not changed");
+      return {
+        ...state,
+        loginStatus: true,
+      };
+    default:
+      return state;
+  }
+};
 
 const postReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case 'FETCHED_POSTS_SUCCESS':
-            return {
-                ...state,
-                posts: action.resp
-            }
+  switch (action.type) {
+    case "FETCHED_POSTS_SUCCESS":
+      return {
+        ...state,
+        posts: action.resp,
+      };
 
-        case 'CREATE_NEW_POST':
-            console.log('A new post has been added')
-            return state;      
-               
-        case 'CREATE_NEW_POST_FAIL':
-            console.log('An error has occurred: ' + action.err.message);
-            return {
-                ...state,
-                userActionErr: action.err.message
-            }; 
+    case "CREATE_NEW_POST":
+      console.log("A new post has been added");
+      return state;
 
-        case 'REMOVE_ALL_POSTS':
+    case "CREATE_NEW_POST_FAIL":
+      console.log("An error has occurred: " + action.err.message);
+      return {
+        ...state,
+        userActionErr: action.err.message,
+      };
+
+    /*         case 'REMOVE_ALL_POSTS':
             return {
                 ...state,
                 posts: []
-            }
-        default: 
-            return state;
-    }
-}
+            } */
+    default:
+      return state;
+  }
+};
 
 const rootReducers = combineReducers({
-    auth: authReducer,
-    post: postReducer,
-    firebase: firebaseReducer
-})
+  auth: authReducer,
+  post: postReducer,
+  firebase: firebaseReducer,
+});
 
 export default rootReducers;
