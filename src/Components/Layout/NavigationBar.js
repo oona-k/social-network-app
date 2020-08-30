@@ -9,7 +9,6 @@ import { Component } from "react";
 
 class NavigationBar extends Component {
   render() {
-    console.log(this.props.fb);
     return (
       <>
         <nav className="nav-wrapper teal lighten-2">
